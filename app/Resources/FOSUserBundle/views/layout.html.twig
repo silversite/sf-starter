@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    <!-- css -->
+    {% block css %}
+
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
+
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body>
+
+    {% block fos_user_content %}{% endblock fos_user_content %}
+
+    <!-- javascript -->
+    {% block javascripts %}{% endblock %}
+
+</body>
+</html>
