@@ -7,7 +7,6 @@ Simple symfony 3 starter boilderplate with docker
    - DoctrineFixturesBundle
    - FosUserBundle (with fixtures)
    - DoctrineExtensionsBundle ((dql datetime funcition enabled))
-   - Drag and drop images (requires your Dropbox account be linked)
    - DockerFile with docker-compose (Apache + php7 + mysql + phpmyadmin)
 
 # Docker

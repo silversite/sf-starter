@@ -1,4 +1,4 @@
-FROM php:7-apache
+FROM php:7.1-apache
 
 # Apache configuration
 ADD apache2.conf /etc/apache2/apache2.conf
@@ -9,6 +9,7 @@ ADD symfony.ini /usr/local/etc/php/conf.d/symfony.ini
 RUN apt-get update \
         && apt-get install -y libicu-dev git \
         && apt-get clean \
+        && apt-get install zip unzip \
         && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install pdo pdo_mysql opcache intl && a2enmod rewrite && mkdir /var/www/html/web
