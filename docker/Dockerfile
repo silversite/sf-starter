@@ -7,9 +7,12 @@ ADD symfony.ini /usr/local/etc/php/conf.d/symfony.ini
 
 # PHP Extension
 RUN apt-get update \
+        && apt-get install --assume-yes apt-utils \
         && apt-get install -y libicu-dev git \
+        && apt-get install -y mc \
+        && apt-get install -y nano \
         && apt-get clean \
-        && apt-get install zip unzip \
+        && apt-get install -y zip unzip \
         && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install pdo pdo_mysql opcache intl && a2enmod rewrite && mkdir /var/www/html/web

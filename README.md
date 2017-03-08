@@ -13,8 +13,13 @@ Simple symfony 3 starter boilderplate with docker
 ```sh
 $ cd docker
 $ docker-compose build
-$ docker-compose up -d
+$ docker-compose up
 ```
+you need your mysql container ip address so run:
+```sh
+sudo docker exec -it c2bb762f641d ip addr | grep inet
+```
+and copy you global ip address
 
 | Url | Description |
 | ------ | ------ |
@@ -24,9 +29,9 @@ $ docker-compose up -d
 
 # Default database configuration
 
-| Url | Description |
+| Env | Settings |
 | ------ | ------ |
-| database_host | db |
+| database_host | 172.17.0.2 |
 | database_name | dev |
 | database_user | dev |
 | database_password | dev |
