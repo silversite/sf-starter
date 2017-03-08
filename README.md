@@ -17,7 +17,8 @@ $ docker-compose up
 ```
 you need your mysql container ip address so run:
 ```sh
-sudo docker exec -it c2bb762f641d ip addr | grep inet
+sudo docker ps
+sudo docker exec -it [container ID] ip addr | grep inet
 ```
 and copy you global ip address
 
