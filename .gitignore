@@ -25,3 +25,4 @@
 # Deploy
 #-------------------------
 phploy.ini
+/composer.lock
