@@ -12,11 +12,19 @@ RUN apt-get update \
         && apt-get install -y libicu-dev git \
         && apt-get install -y mc \
         && apt-get install -y nano \
-        && apt-get clean \
         && apt-get install -y zip unzip \
+        && apt-get install -y libfreetype6-dev \
+        && apt-get install -y libjpeg62-turbo-dev \
+        && apt-get install -y libmcrypt-dev \
+        && apt-get install -y libpng12-dev \
+        && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-install pdo pdo_mysql opcache intl && a2enmod rewrite && service apache2 start
+RUN docker-php-ext-install pdo pdo_mysql exif opcache intl \
+    && docker-php-ext-install -j$(nproc) iconv mcrypt \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd \
+    && a2enmod rewrite && service apache2 start
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php \
@@ -24,3 +32,4 @@ RUN curl -sS https://getcomposer.org/installer | php \
 
 RUN usermod -u 1000 www-data && chown -R www-data:www-data /var/www/html/var/cache \
     && chown -R www-data:www-data /var/www/html/var/logs
+
