@@ -13,6 +13,9 @@ services:
       volumes:
         - .:/var/www/html:rw
   db:
+      build:
+          context: .
+          dockerfile: docker/DockerfileMysql
       image: mysql
       container_name: db
       ports:

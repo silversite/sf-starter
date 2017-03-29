@@ -1,32 +1,41 @@
-web:
-    build: .
-    links:
-      - db
-      - phpmyadmin
-    ports:
-      - "80:80"
-    volumes:
-      - ../:/var/www/html:rw
-db:
-    image: mysql
-    ports:
-        - "3306:3306"
-
-    environment:
-        MYSQL_ROOT_PASSWORD: root
-        MYSQL_USER: dev
-        MYSQL_PASSWORD: dev
-        MYSQL_DATABASE: dev
-        
-phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    environment:
-        - PMA_ARBITRARY=1
-    restart: always
-    links:
+version: '2'
+services:
+  web:
+      build:
+          context: .
+          dockerfile: docker/Dockerfile
+      container_name: php_apache
+      links:
         - db
-    ports:
-        - 8180:80
-    volumes:
-        - /sessions
+        - phpmyadmin
+      ports:
+        - "80:80"
+      volumes:
+        - .:/var/www/html:rw
+  db:
+      build:
+          context: .
+          dockerfile: docker/DockerfileMysql
+      image: mysql
+      container_name: db
+      ports:
+          - "3306:3306"
+
+      environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_USER: dev
+          MYSQL_PASSWORD: dev
+          MYSQL_DATABASE: dev
+
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      container_name: phpmyadmin
+      environment:
+          - PMA_ARBITRARY=1
+      restart: always
+      links:
+          - db
+      ports:
+          - 8180:80
+      volumes:
+          - /sessions

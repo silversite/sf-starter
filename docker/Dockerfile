@@ -26,10 +26,15 @@ RUN docker-php-ext-install pdo pdo_mysql exif opcache intl \
     && docker-php-ext-install -j$(nproc) gd \
     && a2enmod rewrite && service apache2 start
 
+#xdebug
+RUN yes | pecl install xdebug \
+    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
+
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
 
 RUN usermod -u 1000 www-data && chown -R www-data:www-data /var/www/html/var/cache \
     && chown -R www-data:www-data /var/www/html/var/logs
-

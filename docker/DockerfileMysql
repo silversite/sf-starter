@@ -1,0 +1,5 @@
+FROM mysql
+
+ADD docker/mysql.sql /tmp/mysql.sql
+
+RUN service mysql start && mysql -u root -proot < /tmp/mysql.sql
